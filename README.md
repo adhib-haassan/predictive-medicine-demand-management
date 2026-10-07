@@ -24,7 +24,7 @@ In this project, we are using Flower, a federated learning framework for PyTorch
 
 
 ## Installation
-- Run the installation script for your shell from the repository root. It installs dependencies and downloads the consumption workbook from Zenodo.
+- Run the installation script for your shell from the repository root. It installs dependencies and downloads all 16 files from the Zenodo record into `data/zenodo/`, verifying each published checksum.
 ```bash
 bash scripts/install.sh
 ```
@@ -45,19 +45,11 @@ In PowerShell:
 .\scripts\run.ps1
 ```
 
-The workbook contains 370 medication records from one public oncology hospital, with monthly consumption for 2023-2024. The default pipeline trains a pooled monthly forecaster across medication histories; products are not treated as separate hospitals, and this is not a federated evaluation. The chronological holdout is July-December 2024 and uses one-step-ahead rolling forecasts with observed prior months. Forecast rows are saved to `flower/evaluation/zenodo_forecasts.csv`, and the model checkpoint is saved to `flower/savedmodels/zenodo_model.pt`.
+The Zenodo download includes consumption, inventory, stock parameters, stock levels, formulary, XYZ classifications, purchase arrivals and lead times, waste, stockout claims, overstock costs, procurement/finance costs, plus the record's example code and documentation. The default forecast currently uses `Consumos 2023-2024.xlsx`; the other operational files are available locally for further analysis but are not inputs to this forecaster.
+
+The consumption workbook contains 370 medication records from one public oncology hospital, with monthly values for 2023-2024. The default pipeline trains a pooled monthly forecaster across medication histories; products are not treated as separate hospitals, and this is not a federated evaluation. The chronological holdout is July-December 2024 and uses one-step-ahead rolling forecasts with observed prior months. Forecast rows are saved to `flower/evaluation/zenodo_forecasts.csv`, and the model checkpoint is saved to `flower/savedmodels/zenodo_model.pt`.
 
 The previous ARIMA/federated simulation remains available through `bash scripts/run_arima_fl.sh` or `.\scripts\run_arima_fl.ps1`. Generate its synthetic client data with `python arima/generate_case_balanced_iid.py`.
-```bash
-bash scripts/run.sh
-```
-
-In PowerShell:
-```powershell
-.\scripts\run.ps1
-```
-- In the directory `flower`, it contains `central.py` which is a LSTM model as a baseline for the centralized training. 
-- The scripts in `scripts/` run centralized training and the federated learning simulation, which also starts localized training for each client. After running the simulations, the results will be stored as both pdfs and html format in the `flower/evaluation` directory.
 
 ## Results
 
