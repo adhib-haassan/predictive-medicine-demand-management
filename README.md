@@ -24,8 +24,7 @@ In this project, we are using Flower, a federated learning framework for PyTorch
 
 
 ## Installation
-- Make sure you have conda installed
-- Run the installation script for your shell from the repository root
+- Run the installation script for your shell from the repository root. It installs dependencies and downloads the consumption workbook from Zenodo.
 ```bash
 bash scripts/install.sh
 ```
@@ -36,13 +35,19 @@ On Windows, PowerShell creates a local `.venv` and installs dependencies there:
 ```
 
 ## Usage
-- Make sure you are in the right conda environment before running the code
-- In the directory `arima`, it contains script that generates the data for clients 1 - 5
-- First, we need to generate the data for the clients. The data is generated based on ARIMA model. The data is generated for 5 clients. The data is stored in the `arima/data` directory.Each Python file has a function that generates the data for each client. For example, you may run the following command that generates data for the balanced iid case. The data will be stored in the `arima/data` directory. 
+The default runner forecasts monthly medication consumption from the Zenodo workbook:
 ```bash
-python generate_case_balanced_iid.py
+bash scripts/run.sh
 ```
 
+In PowerShell:
+```powershell
+.\scripts\run.ps1
+```
+
+The workbook contains 370 medication records from one public oncology hospital, with monthly consumption for 2023-2024. The default pipeline trains a pooled monthly forecaster across medication histories; products are not treated as separate hospitals, and this is not a federated evaluation. The chronological holdout is July-December 2024 and uses one-step-ahead rolling forecasts with observed prior months. Forecast rows are saved to `flower/evaluation/zenodo_forecasts.csv`, and the model checkpoint is saved to `flower/savedmodels/zenodo_model.pt`.
+
+The previous ARIMA/federated simulation remains available through `bash scripts/run_arima_fl.sh` or `.\scripts\run_arima_fl.ps1`. Generate its synthetic client data with `python arima/generate_case_balanced_iid.py`.
 ```bash
 bash scripts/run.sh
 ```
@@ -56,8 +61,11 @@ In PowerShell:
 
 ## Results
 
-- After running the simulation script, open `DASHBOARD.html` to see all the results, and the saved models will be inside the `flower/saved_models` directory.
-- Current approach uses data generated from ARIMA model for training and predictions
+The Zenodo source workbook is released under CC BY 4.0 and contains operational data without patient-level or identifiable information.
+
+## Data Attribution
+
+Fernando, R. (2026). *Dataset and Code for Risk-Informed Data Analytics for Sustainable Pharmaceutical Supply: A Governance Framework for Public Oncology Hospitals* [Dataset]. Zenodo. [https://doi.org/10.5281/zenodo.18851842](https://doi.org/10.5281/zenodo.18851842). CC BY 4.0.
 
 ## Reference
 
