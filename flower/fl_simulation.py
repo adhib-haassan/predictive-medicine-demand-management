@@ -91,7 +91,7 @@ def test(net, testloader, X_test, scaler):
 
     df_result = format_predictions(predictions, values, X_test, scaler)
     
-    rmse = mean_squared_error(df_result.value, df_result.prediction, squared=False)
+    rmse = np.sqrt(mean_squared_error(df_result.value, df_result.prediction))
     return loss, rmse
 
 def inverse_transform(scaler, df, columns):

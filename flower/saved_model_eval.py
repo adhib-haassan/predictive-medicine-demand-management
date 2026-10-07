@@ -244,7 +244,7 @@ def get_evaluation_metrics(df_result):
         #     print("there is a zero")
         #     df_result[round]["value"] +=1 
         #     df_result[round]["prediction"] +=1
-        rmse.append(mean_squared_error(df_result[round].value, df_result[round].prediction,squared=False))
+        rmse.append(np.sqrt(mean_squared_error(df_result[round].value, df_result[round].prediction)))
         mae.append(mean_absolute_error(df_result[round].value, df_result[round].prediction))
         mape.append(mean_absolute_percentage_error(df_result[round].value, df_result[round].prediction)*100)
         smape.append(symmetric_mean_absolute_percentage_error(df_result[round].value, df_result[round].prediction))

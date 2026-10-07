@@ -138,7 +138,7 @@ def main():
         print("Evaluate model on " + MODEL)
         df_result = test(net=model, testloader = testloader, X_test = X_test, scaler = scaler)
         print("R2 score: ", r2_score(df_result.value, df_result.prediction))
-        print("RMSE: ", mean_squared_error(df_result.value, df_result.prediction, squared=False))
+        print("RMSE: ", np.sqrt(mean_squared_error(df_result.value, df_result.prediction)))
         torch.save(model.state_dict(), './flower/savedmodels/local' + str(i+1) + '.pt')
 
     trainloader, testloader, num_examples, num_features, X_test, scaler = load_centralized_data(datasets)
@@ -149,7 +149,7 @@ def main():
     print("Evaluate model on " + MODEL)
     df_result = test(net=model, testloader = testloader, X_test = X_test, scaler = scaler)
     print("R2 score: ", r2_score(df_result.value, df_result.prediction))
-    print("RMSE: ", mean_squared_error(df_result.value, df_result.prediction, squared=False))
+    print("RMSE: ", np.sqrt(mean_squared_error(df_result.value, df_result.prediction)))
     torch.save(model.state_dict(), './flower/savedmodels/centralized.pt')
 
 if __name__ == "__main__":

@@ -25,10 +25,14 @@ In this project, we are using Flower, a federated learning framework for PyTorch
 
 ## Installation
 - Make sure you have conda installed
-- Run the following command to install the required packages
-- `install.sh` has the shell script that creates new conda environment and installs the required packages
+- Run the installation script for your shell from the repository root
 ```bash
-source install.sh
+bash scripts/install.sh
+```
+
+On Windows, PowerShell creates a local `.venv` and installs dependencies there:
+```powershell
+.\scripts\install.ps1
 ```
 
 ## Usage
@@ -40,14 +44,19 @@ python generate_case_balanced_iid.py
 ```
 
 ```bash
-source run.sh
+bash scripts/run.sh
+```
+
+In PowerShell:
+```powershell
+.\scripts\run.ps1
 ```
 - In the directory `flower`, it contains `central.py` which is a LSTM model as a baseline for the centralized training. 
-- `run.sh` contains the script which runs the code for the centralized training and the federated learning simulation which will also start the localized training for each client. After running the simulations, the results will be stored as both pdfs and html format in the `flower/evaluation` directory.
+- The scripts in `scripts/` run centralized training and the federated learning simulation, which also starts localized training for each client. After running the simulations, the results will be stored as both pdfs and html format in the `flower/evaluation` directory.
 
 ## Results
 
-- After running `run.sh`, open `DASHBOARD.html` to see all the results, and the saved models wil be inside the `flower/saved_models` directory.
+- After running the simulation script, open `DASHBOARD.html` to see all the results, and the saved models will be inside the `flower/saved_models` directory.
 - Current approach uses data generated from ARIMA model for training and predictions
 
 ## Reference

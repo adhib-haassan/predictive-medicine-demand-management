@@ -87,8 +87,8 @@ def preprocessing_centralized(filepaths):
     # Loading in data
     df = pd.read_csv(filepaths[0], index_col = [1])
     for i in range(1, len(filepaths)):
-        df2 = pd.read_csv(filepaths[i])
-        df.append(df2, ignore_index = True)
+        df2 = pd.read_csv(filepaths[i], index_col = [1])
+        df = pd.concat([df, df2])
     df.index = pd.to_datetime(df.index)
     df.drop(df.filter(regex="Unname"),axis=1, inplace=True)
 
